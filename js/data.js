@@ -5,7 +5,7 @@
   /* 首页头像旁展示的基础资料；bio 用换行分成三行，由 .lede 的 pre-line 呈现 */
   const PROFILE = {
     name: "京观",
-    title: "稳定七无，少中/少御音",
+    title: "稳定七无，少中/中御音",
     bio: "主要业务\n病恋，虐恋，病虐教学\n怆然符号的沉默展示，是为京观",
     avatarAlt: "京观的冷蓝头像",
     facts: [
