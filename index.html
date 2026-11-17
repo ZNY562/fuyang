@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#04070e">
+  <meta name="description" content="冷蓝月夜风格的纯静态个人资料主页，五幕底图轮播，展示个人简介与技能档案。">
+  <title>京观 | 月夜档案</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+  <!-- 五幕底图：与详情页完全相同的氛围层结构，由 js/atmosphere.js 统一切换 -->
+  <div class="atmosphere" aria-hidden="true">
+    <div class="atmosphere__scene is-active" style="--scene-image: var(--scene-1)"></div>
+    <div class="atmosphere__scene" style="--scene-image: var(--scene-2)"></div>
+    <div class="atmosphere__scene" style="--scene-image: var(--scene-3)"></div>
+    <div class="atmosphere__scene" style="--scene-image: var(--scene-4)"></div>
+    <div class="atmosphere__scene" style="--scene-image: var(--scene-5)"></div>
+    <div class="atmosphere__veil"></div>
+    <div class="atmosphere__vignette"></div>
+    <div class="atmosphere__grain"></div>
+    <div class="atmosphere__scanlines"></div>
+  </div>
+
+  <!-- 雨滴画布：独立背景层，由 js/rain.js 绘制；不接收鼠标事件 -->
+  <canvas id="rain-canvas" class="rain-canvas" aria-hidden="true"></canvas>
+
+  <div class="page-shell">
+    <!-- 个人资料区：文字与头像说明由 js/home.js 根据 js/data.js 填充 -->
+    <header class="hero">
+      <div class="portrait-frame">
+        <img id="profile-avatar" src="assets/avatar.jpg" alt="京观的冷蓝头像" width="240" height="320">
+      </div>
+      <div class="identity">
+        <p class="eyebrow">PERSONAL DOSSIER / 月夜档案</p>
+        <h1 id="profile-name">姓名加载中</h1>
+        <p id="profile-title" class="identity__title">身份加载中</p>
+        <p id="profile-bio" class="lede">简介加载中</p>
+        <ul id="profile-meta" class="meta-list"></ul>
+      </div>
+      <div class="hero__seal" aria-hidden="true">☾</div>
+    </header>
+
+    <main>
+      <!-- 技能卡片容器：卡片由 js/home.js 动态创建，不写死在 HTML 中 -->
+      <section class="section-heading" aria-labelledby="skills-title">
+        <div>
+          <p class="eyebrow">SELECT AN ARCHIVE / 选择一卷档案</p>
+          <h2 id="skills-title">技能藏馆</h2>
+        </div>
+        <p>轻触一扇拱窗，展开对应的技能卷宗。</p>
+      </section>
+      <div id="skill-grid" class="skill-grid" aria-live="polite"></div>
+      <noscript class="noscript">当前页面需要启用 JavaScript 才能生成技能卡片。</noscript>
+    </main>
+
+    <footer class="site-footer">
+      <span>NOCTURNE ARCHIVE / 月夜藏馆</span>
+      <span>怆然符号的沉默展示，是为京观</span>
+    </footer>
+  </div>
+
+  <!-- 经典脚本按顺序加载；不使用 module / fetch，确保 file:// 双击可用 -->
+  <script src="js/data.js"></script>
+  <script src="js/atmosphere.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/rain.js"></script>
+</body>
+</html>

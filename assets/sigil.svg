@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <!-- 背景纹章：CSS 以低透明度平铺；冰蓝与电光蓝呼应五幕底图 -->
+  <g stroke="#a9c9ff" stroke-width="1.4" opacity=".8">
+    <circle cx="120" cy="120" r="72"/>
+    <circle cx="120" cy="120" r="56"/>
+    <path d="M120 30v180M30 120h180"/>
+    <path d="M120 48l62 124H58L120 48z"/>
+    <path d="M120 192L58 68h124L120 192z"/>
+  </g>
+  <g stroke="#4c7dff" stroke-width="1.2">
+    <circle cx="120" cy="120" r="13"/>
+    <path d="M120 92V78m0 84v-14m28-28h14m-84 0h14"/>
+  </g>
+</svg>
