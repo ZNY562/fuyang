@@ -3,59 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#04070e">
-  <meta name="description" content="根据 URL 参数展示对应技能详情，沿用与首页一致的五幕冷蓝底图。">
-  <title>技能卷宗 | 月夜档案</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta http-equiv="refresh" content="0; url=index.html">
+  <title>浮漾 | 个人主页</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body data-page="detail">
-  <!-- 五幕底图：与首页完全相同的氛围层结构，风格保持一致 -->
-  <div class="atmosphere" aria-hidden="true">
-    <div class="atmosphere__scene is-active" style="--scene-image: var(--scene-1)"></div>
-    <div class="atmosphere__scene" style="--scene-image: var(--scene-2)"></div>
-    <div class="atmosphere__scene" style="--scene-image: var(--scene-3)"></div>
-    <div class="atmosphere__scene" style="--scene-image: var(--scene-4)"></div>
-    <div class="atmosphere__scene" style="--scene-image: var(--scene-5)"></div>
-    <div class="atmosphere__veil"></div>
-    <div class="atmosphere__vignette"></div>
-    <div class="atmosphere__grain"></div>
-    <div class="atmosphere__scanlines"></div>
-  </div>
-
-  <div class="page-shell detail-shell">
-    <header class="topbar">
-      <!-- 返回入口始终存在，详情加载失败时也能回到主页 -->
-      <a class="back-link" href="index.html">返回主页</a>
-      <span class="brand-mark">NOCTURNE / SKILL ARCHIVE</span>
-    </header>
-
-    <main>
-      <!-- 命中 id 时，js/skill.js 在这里生成完整详情 -->
-      <article id="skill-detail" class="detail" aria-live="polite"></article>
-
-      <!-- 未传 id、id 拼错或对应技能不存在时显示友好提示 -->
-      <section id="status-panel" class="status-panel" hidden aria-live="polite">
-        <div class="status-panel__art" aria-hidden="true"></div>
-        <div class="status-panel__content">
-          <div class="status-panel__symbol" aria-hidden="true">✧</div>
-          <h1 id="status-title">未找到这份档案</h1>
-          <p id="status-text">请返回主页重新选择技能。</p>
-          <a class="button-link" href="index.html">返回技能卡片列表</a>
-        </div>
-      </section>
-      <noscript class="noscript">当前页面需要启用 JavaScript 才能读取 URL 参数并渲染详情。</noscript>
-    </main>
-
-    <footer class="site-footer">
-      <span>NOCTURNE ARCHIVE / 月夜藏馆</span>
-      <span>怆然符号的沉默展示，是为京观</span>
-    </footer>
-  </div>
-
-  <!-- 先加载数据与氛围控制，再执行取参与渲染逻辑 -->
-  <script src="js/data.js"></script>
-  <script src="js/atmosphere.js"></script>
-  <script src="js/skill.js"></script>
+<body class="profile-page">
+  <main class="page-shell">
+    <section class="status-panel">
+      <h1>回到个人主页</h1>
+      <p>这份独立主页从这里继续。</p>
+      <a class="button-link" href="index.html">打开浮漾的主页</a>
+    </section>
+  </main>
 </body>
 </html>

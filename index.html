@@ -3,68 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#04070e">
-  <meta name="description" content="冷蓝月夜风格的纯静态个人资料主页，五幕底图轮播，展示个人简介与技能档案。">
-  <title>京观 | 月夜档案</title>
+  <meta name="theme-color" content="#111112">
+  <meta name="description" content="浮漾的个人主页。">
+  <title>浮漾 | 个人主页</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body data-page="home">
-  <!-- 五幕底图：与详情页完全相同的氛围层结构，由 js/atmosphere.js 统一切换 -->
-  <div class="atmosphere" aria-hidden="true">
-    <div class="atmosphere__scene is-active" style="--scene-image: var(--scene-1)"></div>
-    <div class="atmosphere__scene" style="--scene-image: var(--scene-2)"></div>
-    <div class="atmosphere__scene" style="--scene-image: var(--scene-3)"></div>
-    <div class="atmosphere__scene" style="--scene-image: var(--scene-4)"></div>
-    <div class="atmosphere__scene" style="--scene-image: var(--scene-5)"></div>
-    <div class="atmosphere__veil"></div>
-    <div class="atmosphere__vignette"></div>
-    <div class="atmosphere__grain"></div>
-    <div class="atmosphere__scanlines"></div>
-  </div>
+<body data-page="home" class="profile-page">
+  <header class="profile-topbar">
+    <a class="profile-brand" href="index.html" aria-label="浮漾主页"><span class="profile-brand__mark">F</span><span>PERSONAL SPACE</span></a>
+    <a class="topbar-link" href="#moments">最近动态 <span aria-hidden="true">↘</span></a>
+  </header>
 
-  <!-- 雨滴画布：独立背景层，由 js/rain.js 绘制；不接收鼠标事件 -->
-  <canvas id="rain-canvas" class="rain-canvas" aria-hidden="true"></canvas>
-
-  <div class="page-shell">
-    <!-- 个人资料区：文字与头像说明由 js/home.js 根据 js/data.js 填充 -->
-    <header class="hero">
-      <div class="portrait-frame">
-        <img id="profile-avatar" src="assets/avatar.jpg" alt="京观的冷蓝头像" width="240" height="320">
-      </div>
-      <div class="identity">
-        <p class="eyebrow">PERSONAL DOSSIER / 月夜档案</p>
-        <h1 id="profile-name">姓名加载中</h1>
-        <p id="profile-title" class="identity__title">身份加载中</p>
-        <p id="profile-bio" class="lede">简介加载中</p>
-        <ul id="profile-meta" class="meta-list"></ul>
-      </div>
-      <div class="hero__seal" aria-hidden="true">☾</div>
-    </header>
-
-    <main>
-      <!-- 技能卡片容器：卡片由 js/home.js 动态创建，不写死在 HTML 中 -->
-      <section class="section-heading" aria-labelledby="skills-title">
-        <div>
-          <p class="eyebrow">SELECT AN ARCHIVE / 选择一卷档案</p>
-          <h2 id="skills-title">技能藏馆</h2>
+  <main class="profile-shell">
+    <section class="profile-cover" aria-labelledby="profile-name">
+      <img class="profile-cover__image" src="assets/avatar.jpg" alt="黑白暗调的个人头像照片">
+      <div class="profile-cover__shade"></div>
+      <div class="profile-cover__caption"><span>A SMALL COLLECTION</span><span>关于日常与心事</span></div>
+      <div class="profile-intro">
+        <div class="profile-avatar-wrap"><img id="profile-avatar" class="profile-avatar" src="assets/avatar.jpg" alt="浮漾的头像"></div>
+        <div class="profile-intro__text">
+          <p class="profile-kicker">PERSONAL PROFILE <span>／ 个人主页</span></p>
+          <h1 id="profile-name">浮漾</h1>
+          <p id="profile-title" class="profile-title">狮子座 · INFJ·  三恋陪· switch</p>
+          <p id="profile-bio" class="profile-bio"></p>
         </div>
-        <p>轻触一扇拱窗，展开对应的技能卷宗。</p>
-      </section>
-      <div id="skill-grid" class="skill-grid" aria-live="polite"></div>
-      <noscript class="noscript">当前页面需要启用 JavaScript 才能生成技能卡片。</noscript>
-    </main>
+        <div class="profile-intro__seal" aria-hidden="true">F.</div>
+      </div>
+    </section>
 
-    <footer class="site-footer">
-      <span>NOCTURNE ARCHIVE / 月夜藏馆</span>
-      <span>怆然符号的沉默展示，是为京观</span>
-    </footer>
-  </div>
+    <nav class="profile-tabs" aria-label="主页栏目">
+      <a class="is-current" href="#moments"><span class="tab-glyph">◷</span>动态</a>
+      <a href="#about"><span class="tab-glyph">◇</span>关于我</a>
+      <a href="#archive"><span class="tab-glyph">✳</span>个人须知</a>
+      <span class="profile-tabs__note">HERE, IN MY OWN WORDS.</span>
+    </nav>
 
-  <!-- 经典脚本按顺序加载；不使用 module / fetch，确保 file:// 双击可用 -->
+    <div class="profile-layout">
+      <div class="profile-main-column">
+        <section id="about" class="side-card about-card">
+          <p class="side-card__eyebrow">A FEW THINGS ABOUT ME</p>
+          <h2>关于我</h2>
+          <p class="about-copy">真诚稀薄寡淡，爱也如履薄冰。<br>常点：三恋，树洞，普陪</p>
+          <ul id="profile-meta" class="profile-facts"></ul>
+        </section>
+
+        <section id="archive" class="side-card archive-card">
+          <div class="archive-card__heading"><div><p class="side-card__eyebrow">PLEASE READ</p><h2>个人须知</h2></div><span aria-hidden="true">✳</span></div>
+          <p>请仔细阅读以下须知。</p>
+          <div class="archive-tags">
+            <a href="personal-intro.html">个人介绍</a>
+            <a href="likes.html">喜点</a>
+            <a href="boundaries.html">雷点</a>
+          </div>
+        </section>
+
+        <section class="moments-column" id="moments" aria-labelledby="moments-title">
+          <div class="feed-heading">
+            <div><p class="section-overline">A QUIET LITTLE LOG</p><h2 id="moments-title">最近动态</h2></div>
+            <span id="moment-count" class="feed-count">03 NOTES</span>
+          </div>
+          <div id="moments-feed" class="moment-feed" aria-live="polite"></div>
+        </section>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="profile-footer"><span>FUYANG · PERSONAL SPACE</span><span>安静地记录，也认真地生活。</span></footer>
   <script src="js/data.js"></script>
-  <script src="js/atmosphere.js"></script>
   <script src="js/home.js"></script>
-  <script src="js/rain.js"></script>
 </body>
 </html>

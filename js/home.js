@@ -1,69 +1,75 @@
-/* js/home.js：首页控制器，根据 SITE_DATA 填充资料并动态生成技能卡片 */
+/* 独立主页控制器：读取主页资料与原创示例动态。 */
 (function () {
   "use strict";
 
   const siteData = window.SITE_DATA;
   const profile = siteData.PROFILE;
-  const skills = siteData.SKILLS;
+  const moments = siteData.MOMENTS;
 
-  /* 通用节点工厂：统一创建元素、类名和文本，避免拼接 HTML 字符串 */
   function createElement(tagName, className, text) {
     const element = document.createElement(tagName);
-    if (className) {
-      element.className = className;
-    }
-    if (text !== undefined && text !== null) {
-      element.textContent = text;
-    }
+    if (className) element.className = className;
+    if (text !== undefined && text !== null) element.textContent = text;
     return element;
   }
 
-  /* 填充姓名、身份、简介、头像替代文字与资料标签 */
   function renderProfile() {
-    document.title = profile.name + " | 个人资料";
+    document.title = profile.name + " | 个人主页";
     document.getElementById("profile-name").textContent = profile.name;
     document.getElementById("profile-title").textContent = profile.title;
     document.getElementById("profile-bio").textContent = profile.bio;
     document.getElementById("profile-avatar").alt = profile.avatarAlt;
 
-    const metaList = document.getElementById("profile-meta");
+    const facts = document.getElementById("profile-meta");
     profile.facts.forEach(function (fact) {
-      const item = createElement("li", "meta-item");
-      const label = createElement("strong", "", fact.label);
-      item.appendChild(label);
-      item.appendChild(document.createTextNode(fact.value));
-      metaList.appendChild(item);
+      const item = createElement("li", "profile-fact");
+      item.appendChild(createElement("span", "profile-fact__label", fact.label));
+      item.appendChild(createElement("span", "profile-fact__value", fact.value));
+      facts.appendChild(item);
     });
   }
 
-  /* 创建一张卡片；卡片本身是链接，href 携带经过编码的技能 id */
-  function createSkillCard(skill) {
-    const card = createElement("a", "skill-card");
-    card.href = "skill.html?id=" + encodeURIComponent(skill.id);
-    card.setAttribute("aria-label", "查看" + skill.name + "技能详情");
+  function createMoment(moment, index) {
+    const article = createElement("article", "moment-card");
+    const rail = createElement("div", "moment-rail");
+    rail.appendChild(createElement("span", "moment-rail__dot"));
+    rail.appendChild(createElement("span", "moment-rail__line"));
+    article.appendChild(rail);
 
-    const top = createElement("div", "skill-card__top");
-    const sigil = createElement("span", "skill-card__sigil", skill.glyph);
-    sigil.setAttribute("aria-hidden", "true");
-    top.appendChild(sigil);
-    top.appendChild(createElement("span", "skill-card__level", skill.level));
+    const content = createElement("a", "moment-card__content");
+    content.href = moment.url;
+    content.setAttribute("aria-label", "打开动态 0" + (index + 1) + "：" + moment.title);
+    const meta = createElement("div", "moment-card__meta");
+    meta.appendChild(createElement("span", "moment-card__index", "NOTE 0" + (index + 1)));
+    meta.appendChild(createElement("span", "moment-card__category", moment.category));
+    content.appendChild(meta);
+    content.appendChild(createElement("h3", "moment-card__title", moment.title));
+    content.appendChild(createElement("p", "moment-card__summary", moment.summary));
 
-    card.appendChild(top);
-    card.appendChild(createElement("p", "skill-card__category", skill.category));
-    card.appendChild(createElement("h3", "skill-card__title", skill.name));
-    card.appendChild(createElement("p", "skill-card__summary", skill.summary));
-    card.appendChild(createElement("span", "skill-card__action", "展阅卷宗"));
-    return card;
+    if (moment.quote) {
+      const quote = createElement("p", "moment-card__quote", moment.quote);
+      quote.setAttribute("aria-label", "风格摘录");
+      content.appendChild(quote);
+    }
+
+    const footer = createElement("div", "moment-card__footer");
+    const tag = createElement("span", "moment-card__tag", "# " + moment.tag);
+    const stamp = createElement("span", "moment-card__stamp", "打开动态 ↗");
+    footer.appendChild(tag);
+    footer.appendChild(stamp);
+    content.appendChild(footer);
+    article.appendChild(content);
+    return article;
   }
 
-  /* 遍历数据数组，把卡片追加到首页网格 */
-  function renderSkillCards() {
-    const grid = document.getElementById("skill-grid");
-    skills.forEach(function (skill) {
-      grid.appendChild(createSkillCard(skill));
+  function renderMoments() {
+    const feed = document.getElementById("moments-feed");
+    moments.forEach(function (moment, index) {
+      feed.appendChild(createMoment(moment, index));
     });
+    document.getElementById("moment-count").textContent = String(moments.length).padStart(2, "0") + " NOTES";
   }
 
   renderProfile();
-  renderSkillCards();
+  renderMoments();
 })();
